@@ -79,7 +79,7 @@ export default function Cadastro() {
 
             <View style={style.boxBottom}>
                 <TouchableOpacity style={style.botao} onPress={handleLogin}>
-                    <Text style={style.textoBotao}>CADASTRAR</Text>
+                    <Text style={style.textoBotao}>{loading ? "CARREGANDO..." : "CADASTRAR"}</Text>
                 </TouchableOpacity>
             </View>
 

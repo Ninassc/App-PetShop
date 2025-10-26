@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, TouchableOpacity, Image, ImageBackground } from "react-native";
 import Fundo from '../../assets/Fundo.png'
 import Escrita from '../../assets/Escrita.png'
@@ -6,24 +6,37 @@ import Cachorro from '../../assets/Cachorro.png'
 import LoginIcone from '../../assets/LoginIcone.png'
 import RegistrarIcone from '../../assets/RegistrarIcone.png'
 import { style } from './StyleCadastroLogin'
-import {router} from 'expo-router'
-
+import { router } from 'expo-router'
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function CadastroLogin() {
 
-    function handleToLogin(){
+    function handleToLogin() {
         router.push("../login/Login")
     }
 
-    function handleToCadastro(){
+    function handleToCadastro() {
         router.push("../Cadastro/Cadastro")
     }
 
+    function handleToHome() {
+        router.push("../Home/Home")
+    }
+
+    useEffect(() => {
+        if (__DEV__) {
+            AsyncStorage.setItem('@token', 'dev-token')
+            AsyncStorage.setItem('@user', JSON.stringify({ name: 'Dev Mode' }))
+            router.replace("../Home/Home")
+        }
+    }, [])
+
+
     return (
-        <ImageBackground 
-        source={Fundo}
-        resizeMode="cover"
-        style={style.container}>
+        <ImageBackground
+            source={Fundo}
+            resizeMode="cover"
+            style={style.container}>
             <View style={style.logo} >
                 <Image source={Escrita}></Image>
                 <Image source={Cachorro} />
@@ -35,16 +48,16 @@ export default function CadastroLogin() {
 
             <View style={style.direcionar}>
                 <View style={style.boxLR}>
-                    <TouchableOpacity onPress={handleToLogin} style={style.btn}> 
+                    <TouchableOpacity onPress={handleToLogin} style={style.btn}>
                         <Text style={style.textoBtn}>Login</Text>
                     </TouchableOpacity>
-                    <Image style={style.icone} source={LoginIcone}/>
+                    <Image style={style.icone} source={LoginIcone} />
                 </View>
                 <View style={style.boxLR}>
                     <TouchableOpacity onPress={handleToCadastro} style={style.btn}>
                         <Text style={style.textoBtn}>Cadastrar</Text>
                     </TouchableOpacity>
-                    <Image style={style.icone} source={RegistrarIcone}/>
+                    <Image style={style.icone} source={RegistrarIcone} />
                 </View>
             </View>
         </ImageBackground>

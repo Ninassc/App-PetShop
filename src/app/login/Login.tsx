@@ -6,14 +6,30 @@ import Fundo from '../../assets/Fundo.png';
 import Google from '../../assets/Google.png';
 import Apple from '../../assets/Apple.png';
 import Message from '../../assets/Message.png';
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { supabase } from "../../lib/supabase";
 
 export default function Login() {
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [loading, setLoading] = useState(false)
 
-    function handleLogin() {
+    async function handleLogin() {
+        setLoading(true)
+
+        const {data, error} = await supabase.auth.signInWithPassword({
+            email : email,
+            password : senha
+        })
+
+        if(error){
+            Alert.alert("Error", error.message)
+            setLoading(false)
+            return
+        }
+
+        setLoading(false)
+        router.replace("../Home/Home")
 
     }
 
@@ -54,7 +70,7 @@ export default function Login() {
 
             <View style={style.boxBottom}>
                 <TouchableOpacity onPress={handleLogin} style={style.botao}>
-                    <Text style={style.textoBotao}>LOGIN</Text>
+                    <Text style={style.textoBotao}>{loading ? "CARREGANDO..." : "ENTRAR"}</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground>

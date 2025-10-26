@@ -19,13 +19,13 @@ export default function App() {
 
   if (!fontLoaded) return null;
 
-  function handleToCadastroLogin(){
+  function handleToCadastroLogin() {
     router.push("./CadastroLogin/CadastroLogin")
   }
 
   return (
     <TouchableOpacity onPress={handleToCadastroLogin} style={style.container}>
-      <ImageBackground  style={style.container} source={Fundo} resizeMode='cover'>
+      <ImageBackground style={style.container} source={Fundo} resizeMode='cover'>
         <View style={style.boxLogo}>
           <Image style={style.logo} source={Logo} />
           <Text style={style.texto}>A farmácia pet que chega até você</Text>
