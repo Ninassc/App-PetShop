@@ -3,6 +3,8 @@ export const themes = {
         branco: "#F2EDD1",
         azulEscuro: "#465df1ff",
         verde: "#C8F05B",
-        azulBorda: "#050886"
+        azulBorda: "#050886",
+        verdeQuadrado: "#91D97D",
+        laranja : "#FF6B25",
     }
 }

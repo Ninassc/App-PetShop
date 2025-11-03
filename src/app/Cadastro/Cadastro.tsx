@@ -15,18 +15,17 @@ export default function Cadastro() {
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
-    const [confirmarSenha, setConfirmarSenha] = useState("")
+    const [nome, setNome] = useState("")
     const [loading, setLoading] = useState(false)
 
     async function handleLogin() {
-        if (senha == confirmarSenha) {
             setLoading(true)
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: senha,
                 options: {
                     data: {
-                        name: email.split(`@`)[0]
+                        name: nome
                     }
                 }
             })
@@ -38,10 +37,6 @@ export default function Cadastro() {
 
             setLoading(false)
             router.replace("../login/Login")
-        }
-        else {
-            Alert.alert("As senhas não batem!")
-        }
     }
 
     return (
@@ -63,6 +58,11 @@ export default function Cadastro() {
 
 
             <View style={style.boxMid}>
+                 <View style={style.email}>
+                    <Text style={style.tLogin}>Nome</Text>
+                    <TextInput value={nome} style={style.inputLogin} onChangeText={setNome} />
+                </View>
+
                 <View style={style.email}>
                     <Text style={style.tLogin}>Email</Text>
                     <TextInput value={email} style={style.inputLogin} onChangeText={setEmail} />
@@ -70,10 +70,6 @@ export default function Cadastro() {
                 <View style={style.senha}>
                     <Text style={style.tLogin}>Senha</Text>
                     <TextInput secureTextEntry value={senha} style={style.inputLogin} onChangeText={setSenha} />
-                </View>
-                <View style={style.senha}>
-                    <Text style={style.tLogin}>Confirmar Senha</Text>
-                    <TextInput secureTextEntry value={confirmarSenha} style={style.inputLogin} onChangeText={setConfirmarSenha} />
                 </View>
             </View>
 
